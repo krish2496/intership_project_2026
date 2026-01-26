@@ -1,0 +1,17 @@
+D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.deps.json
+D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.dll
+D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.pdb
+D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Core.dll
+D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Core.pdb
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.csproj.AssemblyReference.cache
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.AssemblyInfoInputs.cache
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.AssemblyInfo.cs
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.csproj.CoreCompileInputs.cache
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker..9ACBFC13.Up2Date
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.dll
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\refint\Tracker.Infrastructure.dll
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.pdb
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\ref\Tracker.Infrastructure.dll
+D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.runtimeconfig.json
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.genruntimeconfig.cache
