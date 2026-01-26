@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Tracker.Core.DTOs;
 using Tracker.Core.DTOs.Watchlist;
 using Tracker.Core.Entities;
 using Tracker.Core.Interfaces;
@@ -110,7 +111,16 @@ public class WatchlistService : IWatchlistService
         {
             Id = watchlist.Id,
             MediaId = media.Id,
-            Media = media, // In a real app we might want a MediaDto
+            Media = new MediaDto
+            {
+                Id = media.Id,
+                Title = media.Title,
+                ExternalId = media.ExternalId,
+                Type = media.Type,
+                TotalEpisodes = media.TotalEpisodes,
+                Description = media.Description,
+                CoverImageUrl = media.CoverImageUrl
+            },
             Status = watchlist.Status,
             Progress = watchlist.Progress,
             Rating = watchlist.Rating

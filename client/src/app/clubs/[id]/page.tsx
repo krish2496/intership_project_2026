@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { PollCard } from '@/components/PollCard';
 
 interface Discussion {
     id: number;
@@ -29,9 +30,12 @@ export default function ClubDetailsPage({ params }: { params: Promise<{ id: stri
 
     const [club, setClub] = useState<Club | null>(null);
     const [discussions, setDiscussions] = useState<Discussion[]>([]);
+    const [polls, setPolls] = useState<any[]>([]);
     const { user } = useAuth();
     const { register, handleSubmit, reset } = useForm();
+
     const [showForm, setShowForm] = useState(false);
+    const [showPollForm, setShowPollForm] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -43,6 +47,8 @@ export default function ClubDetailsPage({ params }: { params: Promise<{ id: stri
             setClub(clubRes.data);
             const discRes = await api.get(`/discussion/club/${id}`);
             setDiscussions(discRes.data);
+            const pollRes = await api.get(`/poll?clubId=${id}`);
+            setPolls(pollRes.data);
         } catch (err) {
             console.error(err);
         }
@@ -118,6 +124,63 @@ export default function ClubDetailsPage({ params }: { params: Promise<{ id: stri
                 ))}
                 {discussions.length === 0 && <p className="text-gray-500 text-center py-10">No discussions yet.</p>}
             </div>
+
+            <div className="border-t border-gray-700 pt-8 mt-10">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-2xl font-bold">Community Polls</h2>
+                    {user && (
+                        <button
+                            onClick={() => setShowPollForm(!showPollForm)}
+                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm"
+                        >
+                            {showPollForm ? 'Cancel' : '+ New Poll'}
+                        </button>
+                    )}
+                </div>
+
+                {showPollForm && (
+                    <PollForm clubId={Number(id)} onSuccess={() => { setShowPollForm(false); fetchData(); }} />
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {polls.map(p => <PollCard key={p.id} poll={p} />)}
+                </div>
+                {polls.length === 0 && <p className="text-gray-500">No active polls.</p>}
+            </div>
         </div>
+    );
+}
+
+function PollForm({ clubId, onSuccess }: { clubId: number, onSuccess: () => void }) {
+    const { register, handleSubmit, reset } = useForm();
+
+    const onSubmit = async (data: any) => {
+        // Parse options from comma separated string
+        const options = data.options.split(',').map((o: string) => o.trim()).filter((o: string) => o);
+        if (options.length < 2) {
+            toast.error("At least 2 options required");
+            return;
+        }
+
+        try {
+            await api.post('/poll', {
+                question: data.question,
+                options: options,
+                clubId
+            });
+            toast.success("Poll created");
+            reset();
+            onSuccess();
+        } catch (err) {
+            toast.error("Failed to create poll");
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-800 p-6 rounded-lg mb-6 space-y-4">
+            <input {...register('question', { required: true })} placeholder="Ask a question..." className="w-full p-2 bg-gray-700 rounded text-white" />
+            <input {...register('options', { required: true })} placeholder="Options (comma separated, e.g. Yes, No, Maybe)" className="w-full p-2 bg-gray-700 rounded text-white" />
+            <button type="submit" className="bg-green-600 px-4 py-2 rounded text-white">Create Poll</button>
+        </form>
     );
 }

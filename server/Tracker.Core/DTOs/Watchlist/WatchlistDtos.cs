@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Tracker.Core.Entities;
 using Tracker.Core.Enums;
 
 namespace Tracker.Core.DTOs.Watchlist;
@@ -35,7 +34,7 @@ public class WatchlistDto
 {
     public int Id { get; set; }
     public int MediaId { get; set; }
-    public Media Media { get; set; } = null!;
+    public MediaDto Media { get; set; } = null!;
     public WatchStatus Status { get; set; }
     public int Progress { get; set; }
     public int? Rating { get; set; }

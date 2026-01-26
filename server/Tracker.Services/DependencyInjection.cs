@@ -14,6 +14,9 @@ public static class DependencyInjection
         services.AddScoped<IClubService, ClubService>();
         services.AddScoped<IDiscussionService, DiscussionService>();
         services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IPollService, PollService>();
+        services.AddHttpClient<IRecommendationService, RecommendationService>();
+        services.AddScoped<IAdminService, AdminService>();
         return services;
     }
 }

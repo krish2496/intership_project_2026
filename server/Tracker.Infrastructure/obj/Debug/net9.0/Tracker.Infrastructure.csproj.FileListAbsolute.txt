@@ -1,4 +1,5 @@
 D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.deps.json
+D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.runtimeconfig.json
 D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.dll
 D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.pdb
 D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Core.dll
@@ -12,6 +13,5 @@ D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker..9AC
 D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.dll
 D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\refint\Tracker.Infrastructure.dll
 D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.pdb
-D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\ref\Tracker.Infrastructure.dll
-D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.runtimeconfig.json
 D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\Tracker.Infrastructure.genruntimeconfig.cache
+D:\intership project\server\Tracker.Infrastructure\obj\Debug\net9.0\ref\Tracker.Infrastructure.dll

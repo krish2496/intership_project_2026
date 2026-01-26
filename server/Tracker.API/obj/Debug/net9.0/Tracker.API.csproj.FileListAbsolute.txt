@@ -147,3 +147,5 @@ D:\intership project\server\Tracker.API\bin\Debug\net9.0\Microsoft.Extensions.Lo
 D:\intership project\server\Tracker.API\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
 D:\intership project\server\Tracker.API\bin\Debug\net9.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 D:\intership project\server\Tracker.API\bin\Debug\net9.0\System.Diagnostics.DiagnosticSource.dll
+D:\intership project\server\Tracker.API\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\intership project\server\Tracker.API\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll

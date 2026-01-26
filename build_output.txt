@@ -1,0 +1,17 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Tracker.Core -> D:\intership project\server\Tracker.Core\bin\Debug\net9.0\Tracker.Core.dll
+  Tracker.Infrastructure -> D:\intership project\server\Tracker.Infrastructure\bin\Debug\net9.0\Tracker.Infrastructure.dll
+D:\intership project\server\Tracker.Services\RecommendationService.cs(44,50): error CS1503: Argument 1: cannot convert from 'int?' to 'int' [D:\intership project\server\Tracker.Services\Tracker.Services.csproj]
+D:\intership project\server\Tracker.Services\RecommendationService.cs(48,49): error CS1503: Argument 1: cannot convert from 'int?' to 'int' [D:\intership project\server\Tracker.Services\Tracker.Services.csproj]
+D:\intership project\server\Tracker.Services\RecommendationService.cs(78,44): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [D:\intership project\server\Tracker.Services\Tracker.Services.csproj]
+
+Build FAILED.
+
+D:\intership project\server\Tracker.Services\RecommendationService.cs(78,44): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [D:\intership project\server\Tracker.Services\Tracker.Services.csproj]
+D:\intership project\server\Tracker.Services\RecommendationService.cs(44,50): error CS1503: Argument 1: cannot convert from 'int?' to 'int' [D:\intership project\server\Tracker.Services\Tracker.Services.csproj]
+D:\intership project\server\Tracker.Services\RecommendationService.cs(48,49): error CS1503: Argument 1: cannot convert from 'int?' to 'int' [D:\intership project\server\Tracker.Services\Tracker.Services.csproj]
+    1 Warning(s)
+    2 Error(s)
+
+Time Elapsed 00:00:01.48

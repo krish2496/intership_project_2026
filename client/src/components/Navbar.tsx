@@ -24,6 +24,9 @@ export function Navbar() {
                             <Link href="/clubs" className="text-gray-300 hover:text-white transition">
                                 Clubs
                             </Link>
+                            <Link href="/admin" className="text-red-400 hover:text-red-300 transition">
+                                Admin
+                            </Link>
                             <button
                                 onClick={logout}
                                 className="text-red-400 hover:text-red-300 transition"

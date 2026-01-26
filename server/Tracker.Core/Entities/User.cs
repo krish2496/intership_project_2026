@@ -19,6 +19,8 @@ public class User
     public string PasswordHash { get; set; } = string.Empty;
 
     public string ThemePreference { get; set; } = "Light"; // "Light" or "Dark"
+    
+    public string Role { get; set; } = "User"; // "User" or "Admin"
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
