@@ -9,3 +9,4 @@ D:\intership project\server\Tracker.Core\obj\Debug\net9.0\Tracker.Core.dll
 D:\intership project\server\Tracker.Core\obj\Debug\net9.0\refint\Tracker.Core.dll
 D:\intership project\server\Tracker.Core\obj\Debug\net9.0\Tracker.Core.pdb
 D:\intership project\server\Tracker.Core\obj\Debug\net9.0\ref\Tracker.Core.dll
+D:\intership project\server\Tracker.Core\obj\Debug\net9.0\Tracker.Core.sourcelink.json
