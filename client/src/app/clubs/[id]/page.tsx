@@ -1,7 +1,7 @@
 import ClientPage from './ClientPage';
 
 export async function generateStaticParams() {
-    return [];
+    return [{ id: '1' }];
 }
 
 export default async function ClubDetailsPage({ params }: { params: Promise<{ id: string }> }) {

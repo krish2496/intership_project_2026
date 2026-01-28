@@ -1,7 +1,7 @@
 import ClientPage from './ClientPage';
 
 export async function generateStaticParams() {
-    return [];
+    return [{ id: '1', discussionId: '1' }];
 }
 
 export default async function DiscussionPage({ params }: { params: Promise<{ discussionId: string }> }) {
