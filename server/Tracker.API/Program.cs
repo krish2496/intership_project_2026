@@ -48,13 +48,15 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 // Root endpoint
-app.MapGet("/", () => "Anime Tracker API is running on Render 🚀");
-
 app.UseCors("AllowFrontend");
+
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.Run();
