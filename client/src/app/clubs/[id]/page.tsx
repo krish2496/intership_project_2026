@@ -184,3 +184,7 @@ function PollForm({ clubId, onSuccess }: { clubId: number, onSuccess: () => void
         </form>
     );
 }
+
+export async function generateStaticParams() {
+    return [];
+}

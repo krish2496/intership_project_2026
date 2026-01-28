@@ -139,3 +139,7 @@ export default function DiscussionPage({ params }: { params: Promise<{ discussio
         </div>
     );
 }
+
+export async function generateStaticParams() {
+    return [];
+}
