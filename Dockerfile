@@ -1,3 +1,4 @@
+# Dockerfile for Backend API (Frontend deployed separately on Vercel)
 # Build Stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0-preview AS build
 WORKDIR /src
