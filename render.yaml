@@ -1,0 +1,35 @@
+services:
+  # PostgreSQL Database
+  - type: pserv
+    name: tracker-db
+    env: docker
+    plan: free
+    region: oregon
+    databaseName: trackerdb
+    databaseUser: trackeruser
+
+  # .NET Backend API
+  - type: web
+    name: tracker-api
+    env: docker
+    region: oregon
+    plan: free
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:8080
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: tracker-db
+          property: connectionString
+      - key: Jwt__Issuer
+        value: TrackerApp
+      - key: Jwt__Audience
+        value: TrackerUsers
+      - key: Jwt__Key
+        generateValue: true
+      - key: Tmdb__ApiKey
+        sync: false
