@@ -74,6 +74,8 @@ public class PollService : IPollService
 
     public async Task<PollDto> VoteAsync(int userId, int pollId, VoteDto dto)
     {
+        Console.WriteLine($"[VoteAsync] User {userId} voting on poll {pollId} for option {dto.OptionId}");
+        
         var poll = await _context.Polls
             .Include(p => p.Creator)
             .Include(p => p.Options)
@@ -85,10 +87,19 @@ public class PollService : IPollService
         if (!poll.IsActive) throw new Exception("Poll is closed");
 
         var existingVote = poll.Votes.FirstOrDefault(v => v.UserId == userId);
-        if (existingVote != null) throw new Exception("Already voted");
+        
+        // If user already voted, remove the old vote to allow changing
+        if (existingVote != null)
+        {
+            Console.WriteLine($"[VoteAsync] User already voted for option {existingVote.PollOptionId}, removing old vote");
+            _context.PollVotes.Remove(existingVote);
+            await _context.SaveChangesAsync();
+        }
 
         var option = poll.Options.FirstOrDefault(o => o.Id == dto.OptionId);
         if (option == null) throw new Exception("Invalid option");
+
+        Console.WriteLine($"[VoteAsync] Saving new vote for option {dto.OptionId}");
 
         var vote = new PollVote
         {
@@ -100,16 +111,28 @@ public class PollService : IPollService
         _context.PollVotes.Add(vote);
         await _context.SaveChangesAsync();
 
-        // Refresh options/votes
-        // Actually EF Core tracks them, but we added to the DbSet directly.
-        // Let's just return the updated DTO.
-        // We need to re-fetch or manual update for the DTO return.
-        
-        // Manual update of in-memory object for DTO construction
-        poll.Votes.Add(vote);
-        option.Votes.Add(vote);
+        Console.WriteLine($"[VoteAsync] Vote saved with ID: {vote.Id}");
 
-        return MapToDto(poll, userId);
+        // Reload the poll with all updated vote counts
+        var updatedPoll = await _context.Polls
+            .Include(p => p.Creator)
+            .Include(p => p.Options)
+            .ThenInclude(o => o.Votes)
+            .Include(p => p.Votes)
+            .FirstOrDefaultAsync(p => p.Id == pollId);
+
+        if (updatedPoll == null) throw new Exception("Poll not found after vote");
+
+        Console.WriteLine($"[VoteAsync] After reload - Poll votes: {updatedPoll.Votes.Count}");
+        foreach (var opt in updatedPoll.Options)
+        {
+            Console.WriteLine($"[VoteAsync] Option '{opt.Text}' has {opt.Votes.Count} votes");
+        }
+
+        var result = MapToDto(updatedPoll, userId);
+        Console.WriteLine($"[VoteAsync] Returning DTO with totalVotes: {result.TotalVotes}, userVotedOptionId: {result.UserVotedOptionId}");
+        
+        return result;
     }
 
     public async Task<bool> DeletePollAsync(int userId, int pollId)

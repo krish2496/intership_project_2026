@@ -109,6 +109,12 @@ public class TrackerDbContext : DbContext
             .HasForeignKey(v => v.PollOptionId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<PollVote>()
+            .HasOne(v => v.User)
+            .WithMany()
+            .HasForeignKey(v => v.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         // Ensure user can only vote once per poll
         modelBuilder.Entity<PollVote>()
             .HasIndex(v => new { v.PollId, v.UserId })

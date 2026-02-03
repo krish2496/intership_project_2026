@@ -25,7 +25,14 @@ export default function RegisterPage() {
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-900">
             <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-lg">
-                <h2 className="text-3xl font-bold text-center text-white">Join Tracker</h2>
+                {/* Logo/Brand - Click to go home */}
+                <Link href="/" className="block text-center">
+                    <h1 className="text-3xl font-bold text-blue-500 hover:text-blue-400 transition-colors">
+                        OtakuTracker
+                    </h1>
+                </Link>
+
+                <h2 className="text-2xl font-bold text-center text-white">Join Tracker</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-300">Username</label>

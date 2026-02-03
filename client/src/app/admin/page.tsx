@@ -5,6 +5,7 @@ import api from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { PollCard } from '@/components/PollCard';
 
 interface SystemStats {
     totalUsers: number;
@@ -22,11 +23,27 @@ interface UserAdminDto {
     createdAt: string;
 }
 
+interface PollOption {
+    id: number;
+    text: string;
+    voteCount: number;
+}
+
+interface Poll {
+    id: number;
+    question: string;
+    creatorName: string;
+    options: PollOption[];
+    userVotedOptionId?: number;
+    totalVotes: number;
+}
+
 export default function AdminPage() {
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
     const [stats, setStats] = useState<SystemStats | null>(null);
     const [users, setUsers] = useState<UserAdminDto[]>([]);
+    const [polls, setPolls] = useState<Poll[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -46,6 +63,8 @@ export default function AdminPage() {
             setStats(statsRes.data);
             const usersRes = await api.get('/admin/users');
             setUsers(usersRes.data);
+            const pollRes = await api.get('/poll');
+            setPolls(pollRes.data);
         } catch (err: any) {
             if (err.response?.status === 403) {
                 toast.error("Access Denied: Admins Only");
@@ -143,6 +162,20 @@ export default function AdminPage() {
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            {/* Global Polls */}
+            <div className="bg-gray-800 rounded-lg p-6 shadow">
+                <h2 className="text-xl font-bold mb-4">Global Polls</h2>
+                {polls.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {polls.map(poll => (
+                            <PollCard key={poll.id} poll={poll} />
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-gray-500 text-center py-4">No active polls available.</p>
+                )}
             </div>
         </div>
     );
