@@ -1,6 +1,6 @@
 # Dockerfile for Backend API (Frontend deployed separately on Vercel)
 # Build Stage
-FROM mcr.microsoft.com/dotnet/sdk:9.0-preview AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy and build Server only (frontend deployed separately on Vercel)
@@ -9,7 +9,7 @@ WORKDIR /src/server/Tracker.API
 RUN dotnet publish Tracker.API.csproj -c Release -o /app
 
 # Final Stage
-FROM mcr.microsoft.com/dotnet/aspnet:9.0-preview
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app .
 
