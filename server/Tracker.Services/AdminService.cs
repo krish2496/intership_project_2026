@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Tracker.Core.DTOs;
 using Tracker.Core.DTOs.Admin;
 using Tracker.Core.Interfaces;
 using Tracker.Infrastructure.Data;
@@ -23,6 +24,16 @@ public class AdminService : IAdminService
             TotalClubs = await _context.Clubs.CountAsync(),
             TotalDiscussions = await _context.Discussions.CountAsync(),
             TotalPolls = await _context.Polls.CountAsync()
+        };
+    }
+
+    public async Task<PublicStatsDto> GetPublicStatsAsync()
+    {
+        return new PublicStatsDto
+        {
+            TotalUsers = await _context.Users.CountAsync(),
+            TotalClubs = await _context.Clubs.CountAsync(),
+            TotalAnime = 1000 // Can be made dynamic if needed
         };
     }
 

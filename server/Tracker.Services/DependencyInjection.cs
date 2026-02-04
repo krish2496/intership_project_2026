@@ -9,6 +9,7 @@ public static class DependencyInjection
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IProfileService, ProfileService>();
         services.AddScoped<IMediaService, MediaService>();
         services.AddScoped<IWatchlistService, WatchlistService>();
         services.AddScoped<IClubService, ClubService>();

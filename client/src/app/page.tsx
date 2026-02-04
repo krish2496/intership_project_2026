@@ -3,10 +3,41 @@
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import api from '@/lib/api';
+
+interface PublicStats {
+  totalUsers: number;
+  totalClubs: number;
+  totalAnime: number;
+}
 
 export default function Home() {
   const { user } = useAuth();
   const router = useRouter();
+  const [stats, setStats] = useState<PublicStats | null>(null);
+  const [loadingStats, setLoadingStats] = useState(true);
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      const response = await api.get('/stats/public');
+      setStats(response.data);
+    } catch (err) {
+      console.error('Failed to load stats:', err);
+      // Set default values if API fails
+      setStats({
+        totalUsers: 500,
+        totalClubs: 50,
+        totalAnime: 1000
+      });
+    } finally {
+      setLoadingStats(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
@@ -124,19 +155,19 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto text-center">
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-2">
-                1000+
+                {loadingStats ? '...' : `${stats?.totalAnime || 1000}+`}
               </div>
               <div className="text-gray-400 text-lg">Anime Titles</div>
             </div>
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 mb-2">
-                500+
+                {loadingStats ? '...' : `${stats?.totalUsers || 0}+`}
               </div>
               <div className="text-gray-400 text-lg">Active Users</div>
             </div>
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-red-600 mb-2">
-                50+
+                {loadingStats ? '...' : `${stats?.totalClubs || 0}+`}
               </div>
               <div className="text-gray-400 text-lg">Community Clubs</div>
             </div>

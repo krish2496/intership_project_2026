@@ -51,8 +51,13 @@ export function Navbar() {
                             <Link href="/clubs" className="text-gray-300 hover:text-white transition">
                                 Clubs
                             </Link>
-                            <Link href="/admin" className="text-red-400 hover:text-red-300 transition">
-                                Admin
+                            {user.role === 'Admin' && (
+                                <Link href="/admin" className="text-red-400 hover:text-red-300 transition">
+                                    Admin
+                                </Link>
+                            )}
+                            <Link href="/profile" className="text-gray-300 hover:text-white transition">
+                                Profile
                             </Link>
                             <button
                                 onClick={logout}

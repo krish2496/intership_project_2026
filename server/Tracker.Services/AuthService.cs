@@ -37,6 +37,7 @@ public class AuthService : IAuthService
         {
             Username = user.Username,
             Email = user.Email,
+            Role = user.Role,
             Token = _tokenService.CreateToken(user)
         };
     }
@@ -54,6 +55,7 @@ public class AuthService : IAuthService
         {
             Username = user.Username,
             Email = user.Email,
+            Role = user.Role,
             Token = _tokenService.CreateToken(user)
         };
     }

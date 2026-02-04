@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import api from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { PollCard } from '@/components/PollCard';
 
@@ -78,10 +79,10 @@ export default function AdminPage() {
     };
 
     const deleteUser = async (id: number) => {
-        if (!confirm("Are you sure you want to delete this user?")) return;
+        if (!confirm("Are you sure you want to permanently delete this user? This action cannot be undone.")) return;
         try {
             await api.delete(`/admin/users/${id}`);
-            toast.success("User deleted");
+            toast.success("User deleted successfully");
             fetchData();
         } catch (err) {
             toast.error("Failed to delete user");
@@ -92,7 +93,15 @@ export default function AdminPage() {
 
     return (
         <div className="space-y-8">
-            <h1 className="text-3xl font-bold border-l-4 border-red-600 pl-4">Admin Dashboard</h1>
+            <div className="flex justify-between items-center">
+                <h1 className="text-3xl font-bold border-l-4 border-red-600 pl-4">Admin Dashboard</h1>
+                <Link
+                    href="/profile"
+                    className="px-4 py-2 bg-gray-700 rounded text-white hover:bg-gray-600 transition"
+                >
+                    My Profile
+                </Link>
+            </div>
 
             {/* Stats Cards */}
             {stats && (
@@ -151,7 +160,7 @@ export default function AdminPage() {
                                         {u.role !== 'Admin' && (
                                             <button
                                                 onClick={() => deleteUser(u.id)}
-                                                className="text-red-500 hover:text-red-400 text-sm"
+                                                className="text-red-500 hover:text-red-400 text-sm font-semibold transition"
                                             >
                                                 Delete
                                             </button>

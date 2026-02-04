@@ -8,6 +8,7 @@ import api from '@/lib/api';
 interface User {
     username: string;
     email: string;
+    role: string;
     token: string;
 }
 
