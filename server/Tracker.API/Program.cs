@@ -14,15 +14,21 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 
-// CORS (allow Render + local)
+// CORS (allow Vercel frontend + local development)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy
-            .AllowAnyOrigin()
+            .WithOrigins(
+                "https://intership-project-2026-la9p.vercel.app",
+                "https://intership-project-2026.vercel.app",
+                "http://localhost:3000",
+                "http://localhost:5173"
+            )
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
