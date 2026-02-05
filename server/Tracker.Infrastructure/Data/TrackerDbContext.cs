@@ -18,6 +18,16 @@ public class TrackerDbContext : DbContext
     public DbSet<Poll> Polls { get; set; } = null!;
     public DbSet<PollOption> PollOptions { get; set; } = null!;
     public DbSet<PollVote> PollVotes { get; set; } = null!;
+    
+    // Comment Likes
+    public DbSet<CommentLike> CommentLikes { get; set; } = null!;
+    
+    // Advanced Clubs
+    public DbSet<ClubEvent> ClubEvents { get; set; } = null!;
+    public DbSet<ClubEventAttendee> ClubEventAttendees { get; set; } = null!;
+    public DbSet<ClubList> ClubLists { get; set; } = null!;
+    public DbSet<ClubListItem> ClubListItems { get; set; } = null!;
+    public DbSet<ClubInvite> ClubInvites { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -118,6 +128,85 @@ public class TrackerDbContext : DbContext
         // Ensure user can only vote once per poll
         modelBuilder.Entity<PollVote>()
             .HasIndex(v => new { v.PollId, v.UserId })
+            .IsUnique();
+
+        // ClubEvent configurations
+        modelBuilder.Entity<ClubEvent>()
+            .HasOne(ce => ce.Club)
+            .WithMany(c => c.Events)
+            .HasForeignKey(ce => ce.ClubId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ClubEvent>()
+            .HasOne(ce => ce.Creator)
+            .WithMany()
+            .HasForeignKey(ce => ce.CreatorId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<ClubEventAttendee>()
+            .HasOne(cea => cea.Event)
+            .WithMany(ce => ce.Attendees)
+            .HasForeignKey(cea => cea.EventId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ClubEventAttendee>()
+            .HasOne(cea => cea.User)
+            .WithMany()
+            .HasForeignKey(cea => cea.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        // Ensure user can only RSVP once per event
+        modelBuilder.Entity<ClubEventAttendee>()
+            .HasIndex(cea => new { cea.EventId, cea.UserId })
+            .IsUnique();
+
+        // ClubList configurations
+        modelBuilder.Entity<ClubList>()
+            .HasOne(cl => cl.Club)
+            .WithMany(c => c.Lists)
+            .HasForeignKey(cl => cl.ClubId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ClubList>()
+            .HasOne(cl => cl.Creator)
+            .WithMany()
+            .HasForeignKey(cl => cl.CreatorId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<ClubListItem>()
+            .HasOne(cli => cli.List)
+            .WithMany(cl => cl.Items)
+            .HasForeignKey(cli => cli.ListId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ClubListItem>()
+            .HasOne(cli => cli.AddedBy)
+            .WithMany()
+            .HasForeignKey(cli => cli.AddedById)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        // ClubInvite configurations
+        modelBuilder.Entity<ClubInvite>()
+            .HasOne(ci => ci.Club)
+            .WithMany(c => c.Invites)
+            .HasForeignKey(ci => ci.ClubId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ClubInvite>()
+            .HasOne(ci => ci.Inviter)
+            .WithMany()
+            .HasForeignKey(ci => ci.InviterId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<ClubInvite>()
+            .HasOne(ci => ci.Invitee)
+            .WithMany()
+            .HasForeignKey(ci => ci.InviteeId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        // Ensure user can only be invited once per club
+        modelBuilder.Entity<ClubInvite>()
+            .HasIndex(ci => new { ci.ClubId, ci.InviteeId })
             .IsUnique();
     }
 }

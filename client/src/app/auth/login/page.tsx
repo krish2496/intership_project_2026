@@ -26,7 +26,7 @@ export default function LoginPage() {
                 {/* Logo/Brand - Click to go home */}
                 <Link href="/" className="block text-center">
                     <h1 className="text-3xl font-bold text-blue-500 hover:text-blue-400 transition-colors">
-                        OtakuTracker
+                        Anime Tracker
                     </h1>
                 </Link>
 

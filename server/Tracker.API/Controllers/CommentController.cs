@@ -61,4 +61,49 @@ public class CommentController : ControllerBase
             return Unauthorized();
         }
     }
+
+    [HttpPost("{id}/like")]
+    public async Task<ActionResult> Like(int id)
+    {
+        try
+        {
+            var userId = GetUserId();
+            await _commentService.LikeCommentAsync(userId, id);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("{id}/dislike")]
+    public async Task<ActionResult> Dislike(int id)
+    {
+        try
+        {
+            var userId = GetUserId();
+            await _commentService.DislikeCommentAsync(userId, id);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpDelete("{id}/like")]
+    public async Task<ActionResult> RemoveLike(int id)
+    {
+        try
+        {
+            var userId = GetUserId();
+            await _commentService.RemoveLikeAsync(userId, id);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

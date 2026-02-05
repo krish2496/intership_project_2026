@@ -20,6 +20,7 @@ public class Comment
     public int? ParentCommentId { get; set; }
     public Comment? ParentComment { get; set; }
     public ICollection<Comment> Replies { get; set; } = new List<Comment>();
+    public ICollection<CommentLike> Likes { get; set; } = new List<CommentLike>();
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

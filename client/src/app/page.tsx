@@ -199,7 +199,7 @@ export default function Home() {
       <footer className="py-12 bg-gray-900/80 backdrop-blur-sm border-t border-gray-800">
         <div className="container mx-auto px-6 text-center">
           <p className="text-gray-400">
-            © 2026 OtakuTracker. Track your anime journey with passion.
+            © 2026 Anime Tracker. Track your anime journey with passion.
           </p>
         </div>
       </footer>

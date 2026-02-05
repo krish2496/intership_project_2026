@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Tracker.Core.DTOs;
 using Tracker.Core.DTOs.Watchlist;
 using Tracker.Core.Entities;
+using Tracker.Core.Enums;
 using Tracker.Core.Interfaces;
 using Tracker.Infrastructure.Data;
 
@@ -70,6 +71,9 @@ public class WatchlistService : IWatchlistService
             .FirstOrDefaultAsync(w => w.Id == watchlistId && w.UserId == userId);
 
         if (entry == null) return null;
+
+        var oldStatus = entry.Status;
+        var oldRating = entry.Rating;
 
         if (dto.Status.HasValue) entry.Status = dto.Status.Value;
         if (dto.Progress.HasValue) entry.Progress = dto.Progress.Value;

@@ -13,6 +13,9 @@ interface Comment {
     isSpoiler: boolean;
     createdAt: string;
     replies: Comment[];
+    likeCount: number;
+    dislikeCount: number;
+    userVote?: number;
 }
 
 interface Discussion {
@@ -72,6 +75,24 @@ export default function DiscussionClient({ discussionId }: { discussionId: strin
         setComments(res.data);
     };
 
+    const handleVote = async (commentId: number, isLike: boolean) => {
+        if (!user) {
+            toast.error("Please login to vote");
+            return;
+        }
+        try {
+            if (isLike) {
+                await api.post(`/comment/${commentId}/like`);
+            } else {
+                await api.post(`/comment/${commentId}/dislike`);
+            }
+            fetchComments(); // Refresh to get updated counts
+        } catch (err) {
+            console.error(err);
+            toast.error("Failed to vote");
+        }
+    };
+
     const CommentNode = ({ comment }: { comment: Comment }) => {
         const [replying, setReplying] = useState(false);
         const [reveal, setReveal] = useState(!comment.isSpoiler);
@@ -92,10 +113,25 @@ export default function DiscussionClient({ discussionId }: { discussionId: strin
                         <p className="mt-1 text-gray-300 text-sm whitespace-pre-wrap">{comment.content}</p>
                     )}
 
-                    <div className="mt-2">
+                    <div className="mt-2 flex items-center gap-4">
                         {user && (
                             <button onClick={() => setReplying(!replying)} className="text-xs text-gray-400 hover:text-white">Reply</button>
                         )}
+
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => handleVote(comment.id, true)}
+                                className={`text-xs flex items-center gap-1 ${comment.userVote === 1 ? 'text-green-500 font-bold' : 'text-gray-400 hover:text-green-400'}`}
+                            >
+                                <span>👍</span> {comment.likeCount}
+                            </button>
+                            <button
+                                onClick={() => handleVote(comment.id, false)}
+                                className={`text-xs flex items-center gap-1 ${comment.userVote === -1 ? 'text-red-500 font-bold' : 'text-gray-400 hover:text-red-400'}`}
+                            >
+                                <span>👎</span> {comment.dislikeCount}
+                            </button>
+                        </div>
                     </div>
 
                     {replying && <ReplyForm parentId={comment.id} onCancel={() => setReplying(false)} />}

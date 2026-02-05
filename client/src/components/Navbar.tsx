@@ -35,7 +35,7 @@ export function Navbar() {
                     </Link>
 
                     <Link href="/" className="text-xl font-bold text-blue-500">
-                        OtakuTracker
+                        Anime Tracker
                     </Link>
                 </div>
 

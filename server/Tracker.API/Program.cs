@@ -49,6 +49,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
+// Seed database with sample anime
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<Tracker.Infrastructure.Data.TrackerDbContext>();
+    await Tracker.API.Data.DbSeeder.SeedSampleDataAsync(context);
+}
+
 // Swagger ENABLED in Production
 app.UseSwagger();
 app.UseSwaggerUI();
