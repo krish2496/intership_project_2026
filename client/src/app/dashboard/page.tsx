@@ -88,6 +88,17 @@ export default function DashboardPage() {
         }
     };
 
+    const deleteItem = async (id: number) => {
+        try {
+            await api.delete(`/watchlist/${id}`);
+            toast.success('Removed from watchlist');
+            fetchWatchlist();
+        } catch (err) {
+            console.error(err);
+            toast.error('Failed to remove item');
+        }
+    };
+
     if (authLoading || loading) return <p className="text-center mt-10">Loading...</p>;
 
     return (
@@ -149,11 +160,27 @@ export default function DashboardPage() {
                                         </select>
                                     </div>
 
-                                    {/* Rating */}
+                                    {/* Rating and Delete */}
                                     <div>
-                                        <label className="text-xs text-gray-400 block mb-1">
-                                            Rating {item.rating ? `(${item.rating}/10)` : ''}
-                                        </label>
+                                        <div className="flex justify-between items-center mb-1">
+                                            <label className="text-xs text-gray-400">
+                                                Rating {item.rating ? `(${item.rating}/10)` : ''}
+                                            </label>
+                                            <button
+                                                onClick={() => {
+                                                    if (confirm('Are you sure you want to remove this from your list?')) {
+                                                        deleteItem(item.id);
+                                                    }
+                                                }}
+                                                className="text-red-400 hover:text-red-300 text-xs flex items-center gap-1 transition-colors"
+                                                title="Remove from list"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                                Delete
+                                            </button>
+                                        </div>
                                         <div className="flex gap-1 flex-wrap">
                                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((rating) => (
                                                 <button

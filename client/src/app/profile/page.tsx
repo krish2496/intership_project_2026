@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import api from '@/lib/api';
-import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 import { toast } from 'react-toastify';
 
 interface ProfileData {

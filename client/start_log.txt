@@ -1,0 +1,53 @@
+
+> client@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.56.1:3000
+- Environments: .env.local
+
+✓ Starting...
+✓ Ready in 1668ms
+ GET / 200 in 1540ms (compile: 1176ms, render: 364ms)
+ GET /auth/login 200 in 250ms (compile: 153ms, render: 97ms)
+ GET /dashboard 200 in 159ms (compile: 100ms, render: 60ms)
+ GET /clubs 200 in 312ms (compile: 264ms, render: 48ms)
+ GET /dashboard 200 in 155ms (compile: 39ms, render: 116ms)
+✓ Compiled in 170ms
+✓ Compiled in 76ms
+✓ Compiled in 68ms
+ GET /dashboard 200 in 287ms (compile: 90ms, render: 197ms)
+ GET /dashboard 200 in 159ms (compile: 3ms, render: 156ms)
+ GET /dashboard 200 in 480ms (compile: 365ms, render: 115ms)
+ GET /dashboard 200 in 53ms (compile: 8ms, render: 45ms)
+ GET /dashboard 200 in 24ms (compile: 3ms, render: 21ms)
+ GET /dashboard 200 in 75ms (compile: 3ms, render: 73ms)
+ GET /dashboard 200 in 81ms (compile: 3ms, render: 78ms)
+ GET /dashboard 200 in 57ms (compile: 3ms, render: 54ms)
+ GET /dashboard 200 in 36ms (compile: 3ms, render: 32ms)
+ GET /dashboard 200 in 85ms (compile: 2ms, render: 83ms)
+ GET /dashboard 200 in 79ms (compile: 3ms, render: 76ms)
+ GET /dashboard 200 in 78ms (compile: 2ms, render: 76ms)
+ GET /dashboard 200 in 87ms (compile: 4ms, render: 83ms)
+ GET /dashboard 200 in 90ms (compile: 3ms, render: 87ms)
+ GET /dashboard 200 in 95ms (compile: 3ms, render: 92ms)
+ GET /dashboard 200 in 103ms (compile: 4ms, render: 99ms)
+ GET /dashboard 200 in 99ms (compile: 4ms, render: 94ms)
+ GET /dashboard 200 in 89ms (compile: 4ms, render: 85ms)
+ GET /dashboard 200 in 82ms (compile: 5ms, render: 76ms)
+ GET /dashboard 200 in 70ms (compile: 2ms, render: 68ms)
+ GET /dashboard 200 in 76ms (compile: 2ms, render: 74ms)
+ GET /dashboard 200 in 81ms (compile: 2ms, render: 79ms)
+ GET /dashboard 200 in 81ms (compile: 2ms, render: 79ms)
+ GET /dashboard 200 in 64ms (compile: 3ms, render: 61ms)
+ GET /dashboard 200 in 43ms (compile: 3ms, render: 41ms)
+ GET /dashboard 200 in 24ms (compile: 3ms, render: 21ms)
+ GET /dashboard 200 in 113ms (compile: 12ms, render: 102ms)
+ GET /dashboard 200 in 104ms (compile: 3ms, render: 101ms)
+ GET /dashboard 200 in 94ms (compile: 4ms, render: 90ms)
+ GET /dashboard 200 in 76ms (compile: 4ms, render: 71ms)
+ GET /dashboard 200 in 42ms (compile: 2ms, render: 39ms)
+ GET /dashboard 200 in 25ms (compile: 3ms, render: 22ms)
+✓ Compiled in 2.3s
+ GET /dashboard 200 in 121ms (compile: 4ms, render: 117ms)
