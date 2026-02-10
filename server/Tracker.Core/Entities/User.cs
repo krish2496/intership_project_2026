@@ -27,4 +27,7 @@ public class User
     public ICollection<Watchlist> Watchlist { get; set; } = new List<Watchlist>();
     public ICollection<Club> OwnedClubs { get; set; } = new List<Club>();
     public ICollection<Discussion> Discussions { get; set; } = new List<Discussion>();
+    public ICollection<Follow> Followers { get; set; } = new List<Follow>();
+    public ICollection<Follow> Following { get; set; } = new List<Follow>();
+    public ICollection<Activity> Activities { get; set; } = new List<Activity>();
 }

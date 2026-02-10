@@ -35,6 +35,7 @@ public class AuthService : IAuthService
 
         return new UserDto
         {
+            Id = user.Id,
             Username = user.Username,
             Email = user.Email,
             Role = user.Role,
@@ -53,6 +54,7 @@ public class AuthService : IAuthService
 
         return new UserDto
         {
+            Id = user.Id,
             Username = user.Username,
             Email = user.Email,
             Role = user.Role,

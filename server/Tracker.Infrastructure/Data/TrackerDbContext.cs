@@ -28,6 +28,10 @@ public class TrackerDbContext : DbContext
     public DbSet<ClubList> ClubLists { get; set; } = null!;
     public DbSet<ClubListItem> ClubListItems { get; set; } = null!;
     public DbSet<ClubInvite> ClubInvites { get; set; } = null!;
+    
+    // Social Features
+    public DbSet<Follow> Follows { get; set; } = null!;
+    public DbSet<Activity> Activities { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -208,5 +212,28 @@ public class TrackerDbContext : DbContext
         modelBuilder.Entity<ClubInvite>()
             .HasIndex(ci => new { ci.ClubId, ci.InviteeId })
             .IsUnique();
+
+        // Follow System configuration
+        modelBuilder.Entity<Follow>()
+            .HasKey(f => new { f.FollowerId, f.FollowingId });
+
+        modelBuilder.Entity<Follow>()
+            .HasOne(f => f.Follower)
+            .WithMany(u => u.Following)
+            .HasForeignKey(f => f.FollowerId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Follow>()
+            .HasOne(f => f.Following)
+            .WithMany(u => u.Followers)
+            .HasForeignKey(f => f.FollowingId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Activity Feed configuration
+        modelBuilder.Entity<Activity>()
+            .HasOne(a => a.User)
+            .WithMany(u => u.Activities)
+            .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

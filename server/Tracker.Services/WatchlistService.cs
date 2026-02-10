@@ -11,10 +11,12 @@ namespace Tracker.Services;
 public class WatchlistService : IWatchlistService
 {
     private readonly TrackerDbContext _context;
+    private readonly IActivityService _activityService;
 
-    public WatchlistService(TrackerDbContext context)
+    public WatchlistService(TrackerDbContext context, IActivityService activityService)
     {
         _context = context;
+        _activityService = activityService;
     }
 
     public async Task<WatchlistDto> AddToWatchlistAsync(int userId, AddToWatchlistDto dto)
@@ -74,10 +76,36 @@ public class WatchlistService : IWatchlistService
 
         var oldStatus = entry.Status;
         var oldRating = entry.Rating;
+        var oldProgress = entry.Progress;
 
-        if (dto.Status.HasValue) entry.Status = dto.Status.Value;
-        if (dto.Progress.HasValue) entry.Progress = dto.Progress.Value;
-        if (dto.Rating.HasValue) entry.Rating = dto.Rating.Value;
+        if (dto.Status.HasValue) 
+        {
+            entry.Status = dto.Status.Value;
+            if (entry.Status == WatchStatus.Completed && oldStatus != WatchStatus.Completed)
+            {
+                await _activityService.LogActivityAsync(userId, ActivityType.CompletedShow, entry.MediaId, $"Completed {entry.Media.Title}");
+            }
+        }
+
+        if (dto.Progress.HasValue) 
+        {
+            entry.Progress = dto.Progress.Value;
+            // Only log if progressed significantly or explicitly needed. For now log every episode? Maybe too spammy.
+            // Let's log every episode for now as per "WatchedEpisode" type.
+            if (entry.Progress > oldProgress)
+            {
+                 await _activityService.LogActivityAsync(userId, ActivityType.WatchedEpisode, entry.MediaId, $"Watched episode {entry.Progress} of {entry.Media.Title}");
+            }
+        }
+
+        if (dto.Rating.HasValue) 
+        {
+            entry.Rating = dto.Rating.Value;
+            if (entry.Rating > 0 && entry.Rating != oldRating)
+            {
+                await _activityService.LogActivityAsync(userId, ActivityType.RatedShow, entry.MediaId, $"Rated {entry.Media.Title} {entry.Rating}/10");
+            }
+        }
 
         entry.UpdatedAt = DateTime.UtcNow;
 

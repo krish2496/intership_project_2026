@@ -51,3 +51,7 @@
  GET /dashboard 200 in 25ms (compile: 3ms, render: 22ms)
 ✓ Compiled in 2.3s
  GET /dashboard 200 in 121ms (compile: 4ms, render: 117ms)
+ GET /dashboard 200 in 132ms (compile: 7ms, render: 125ms)
+ GET /dashboard 200 in 104ms (compile: 6ms, render: 98ms)
+ GET /dashboard 200 in 51ms (compile: 7ms, render: 44ms)
+ GET /search 200 in 170ms (compile: 128ms, render: 42ms)
