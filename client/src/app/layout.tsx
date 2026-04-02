@@ -1,22 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import { Providers } from "@/components/Providers";
-import { Navbar } from "@/components/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const robotoMono = Roboto_Mono({
   subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
-  title: "Anime & TV Tracker",
-  description: "Track your favorite shows",
+  title: "Client",
+  description: "Client app",
 };
 
 export default function RootLayout({
@@ -26,15 +24,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 text-white`}
-      >
-        <Providers>
-          <Navbar />
-          <main className="container mx-auto p-4">
-            {children}
-          </main>
-        </Providers>
+      <body className={`${inter.variable} ${robotoMono.variable} antialiased`}>
+        {children}
       </body>
     </html>
   );
